@@ -1,8 +1,14 @@
 # Paimon.Moe Linux Importer
 
-Script to generate url to be imported into https://paimon.moe
+A simple script to generate url to be imported into https://paimon.moe
 
 ## How to run
+Run this one line command on your terminal
+```sh
+sh <( curl -s https://raw.githubusercontent.com/avivbintangaringga/paimon-moe-linux-importer/refs/heads/main/paimon.sh )
+```
+
+##### **OR**
 
 Clone this repository.
 ```sh
@@ -16,7 +22,7 @@ Make the script executable
 ```sh
 chmod +x paimon.sh
 ```
-Run the script
+Execute the script
 ```sh
 sh ./paimon.sh
 ```
