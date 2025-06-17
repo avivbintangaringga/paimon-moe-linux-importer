@@ -1,6 +1,31 @@
 #!/bin/sh
 
-source ./paimon.conf
+CONFIG_FILE=./config.paimon
+
+[ ! -f $CONFIG_FILE ] && touch $CONFIG_FILE
+
+. $CONFIG_FILE
+
+echo " ##############################"
+echo " # Paimon.moe Importer Script #"
+echo " ##############################"
+echo ""
+
+# Check if game path is set
+if [ -z "$GAME_PATH" ]
+then
+  read -p "Enter absolute game path: " GAME_PATH
+
+  # Change game path config
+  sed -i "s/^GAME_PATH=.*/GAME_PATH=\"${GAME_PATH//\//\\/}\"/" $CONFIG_FILE
+fi
+
+# Check if game path is exists
+if [ ! -d $GAME_PATH ]
+then
+  echo "ERROR: specified game path is not found!"
+  exit 1
+fi
 
 echo "Step 1. Open your gacha log in the game"
 read -p "Press enter if you have..."
