@@ -4,11 +4,7 @@ CONFIG_FILE=./config.paimon
 
 [ ! -f $CONFIG_FILE ] && touch $CONFIG_FILE
 
-. $CONFIG_FILE
-
-echo "##############################"
-echo "# Paimon.moe Importer Script #"
-echo "##############################"
+FORCE_SET_GAME_PATH=false
 
 # Set config NAME VALUE
 set_config() {
@@ -19,6 +15,7 @@ set_config() {
     echo "${1}=\"${2}\"" >> $CONFIG_FILE
   fi
 
+  # Reimport config file
   . $CONFIG_FILE
 }
 
@@ -27,10 +24,44 @@ input_game_path() {
 
   # Change game path config
   set_config "GAME_PATH" "${GAME_PATH}"
+
+  FORCE_SET_GAME_PATH=false
 }
 
+# Show help
+show_help() {
+  echo "Usage:"
+  echo "  $(basename $0) [options]"
+  echo ""
+  echo "Options:"
+  echo "  -h        Show help"
+  echo "  -c        Change game path"
+}
+
+# Check options
+while getopts "hc" arg
+do
+  case $arg in
+    c)
+      FORCE_SET_GAME_PATH=true
+      ;;
+    h | *)
+      show_help
+      exit 0
+      ;;
+  esac
+done
+
+# Import config file
+. $CONFIG_FILE
+
+echo "##############################"
+echo "# Paimon.moe Importer Script #"
+echo "##############################"
+
+
 # Check if game path is set
-[ -z "$GAME_PATH" ] && echo && input_game_path
+([ -z "$GAME_PATH" ] || $FORCE_SET_GAME_PATH) && echo && input_game_path
 
 # Check if game path is valid
 while [ ! -d "$GAME_PATH/GenshinImpact_Data" ]
