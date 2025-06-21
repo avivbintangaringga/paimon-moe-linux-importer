@@ -95,4 +95,4 @@ echo ""
 echo $LOG_URL
 
 echo ""
-echo "Step 3. Paste into paimon.moe using Method 2"
+echo "Step 3. Paste into paimon.moe import section"
