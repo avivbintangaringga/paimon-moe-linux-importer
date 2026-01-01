@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CONFIG_FILE=./config.paimon
+CONFIG_FILE=~/config.paimon
 
 [ ! -f $CONFIG_FILE ] && touch $CONFIG_FILE
 
@@ -9,7 +9,7 @@ FORCE_SET_GAME_PATH=false
 # Set config NAME VALUE
 set_config() {
   if grep -q "^${1}=" $CONFIG_FILE
-  then 
+  then
     sed -i "s/^${1}=.*/${1}=\"${2//\//\\/}\"/" $CONFIG_FILE
   else
     echo "${1}=\"${2}\"" >> $CONFIG_FILE
